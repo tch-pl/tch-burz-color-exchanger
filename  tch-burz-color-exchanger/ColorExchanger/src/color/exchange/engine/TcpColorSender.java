@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-public class TcpColorSender implements ColorSender {
+public class TcpColorSender {
     private Socket socket;
 
     public void start() throws IOException {
