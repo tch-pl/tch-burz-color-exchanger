@@ -5,9 +5,9 @@ import java.io.IOException;
 public class ColorEngine {
     private final TcpColorReceiver receiver;
 
-    public ColorEngine(TcpColorReceiver receiver) {
+    public ColorEngine() {
 	super();
-	this.receiver = receiver;
+	receiver = new TcpColorReceiver();
     }
 
     public void sendColor() throws IOException {
