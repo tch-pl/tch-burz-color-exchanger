@@ -40,15 +40,12 @@ public class ColorValueSliderControl extends JFrame {
 }
 
 class ColorChangeListener implements ChangeListener {
-    public ColorChangeListener(ColorEngine engine, boolean receive,
-	    DrawingCanvas canvas) {
+    public ColorChangeListener(boolean receive, DrawingCanvas canvas) {
 	super();
-	this.engine = engine;
 	_receive = receive;
 	this.canvas = canvas;
     }
 
-    private final ColorEngine engine;
     private boolean _receive;
     private final DrawingCanvas canvas;
 
@@ -57,8 +54,6 @@ class ColorChangeListener implements ChangeListener {
 	    Color col = new Color(canvas.redValue, canvas.greenValue,
 		    canvas.blueValue);
 	    ColorQueue.getInstance().putColor(col);
-	    // engine.sendColor(canvas.redValue, canvas.greenValue,
-	    // canvas.blueValue);
 	}
 
     }
@@ -79,19 +74,18 @@ class TColor extends JPanel {
     JSlider sliderR, sliderG, sliderB;
     JButton send;
     JButton receive;
-    private final ColorEngine engine;
 
     public TColor(final ColorEngine engine) {
-	final Boolean _receive = Boolean.FALSE;
-	this.engine = engine;
 	final ColorChangeListener colorChangeListener = new ColorChangeListener(
-		engine, false, canvas);
+		false, canvas);
 
 	sliderR = getSlider(0, 255, 0, 50, 5);
 	sliderG = getSlider(0, 255, 0, 50, 5);
 	sliderB = getSlider(0, 255, 0, 50, 5);
-	send = new JButton("send");
-	receive = new JButton("receive");
+	send = new JButton("Wysy³aj");
+	send.setSize(30, 20);
+	receive = new JButton("Odbieraj");
+	receive.setSize(30, 20);
 	JPanel panel = new JPanel();
 	panel.setLayout(new GridLayout(6, 2, 15, 0));
 
@@ -113,7 +107,7 @@ class TColor extends JPanel {
 
 	receive.addActionListener(new ActionListener() {
 
-	    public void actionPerformed(ActionEvent e) {
+	    public void actionPerformed(ActionEvent event) {
 		colorChangeListener.set_receive(Boolean.TRUE);
 		blockUI();
 		try {
@@ -121,12 +115,13 @@ class TColor extends JPanel {
 			    canvas, sliderR, sliderG, sliderB);
 		    engine.receiveColor(executor);
 
-		} catch (IOException e1) {
-		    // TODO Auto-generated catch block
-		    e1.printStackTrace();
-		} catch (ClassNotFoundException e1) {
-		    // TODO Auto-generated catch block
-		    e1.printStackTrace();
+		} catch (IOException e) {
+		    System.out.println(this.getClass() + "   " + e.getClass()
+			    + "   " + e.getMessage());
+
+		} catch (ClassNotFoundException e) {
+		    System.out.println(this.getClass() + "   " + e.getClass()
+			    + "   " + e.getMessage());
 		}
 
 		unblockUI();
@@ -135,12 +130,12 @@ class TColor extends JPanel {
 
 	send.addActionListener(new ActionListener() {
 
-	    public void actionPerformed(ActionEvent e) {
+	    public void actionPerformed(ActionEvent event) {
 		try {
 		    engine.sendColor();
-		} catch (IOException e1) {
-		    // TODO Auto-generated catch block
-		    e1.printStackTrace();
+		} catch (IOException e) {
+		    System.out.println(this.getClass() + "   " + e.getClass()
+			    + "   " + e.getMessage());
 		}
 
 	    }
