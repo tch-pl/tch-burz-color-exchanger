@@ -13,7 +13,8 @@ public class ColorRequestHandler implements Runnable {
 	    try {
 		sendColors();
 	    } catch (IOException e) {
-		e.printStackTrace();
+		System.out.println(this.getClass() + "   " + e.getClass()
+			+ "   " + e.getMessage());
 	    }
 	}
 

@@ -4,7 +4,7 @@ import java.awt.Canvas;
 import java.awt.Color;
 
 public class DrawingCanvas extends Canvas {
-    Color color;
+    public Color color;
     public int redValue, greenValue, blueValue;
     int alphaValue = 255;
     float[] hsbValues = new float[3];

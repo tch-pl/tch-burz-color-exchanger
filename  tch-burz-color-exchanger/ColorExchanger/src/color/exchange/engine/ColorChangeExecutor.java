@@ -6,10 +6,22 @@ import javax.swing.JSlider;
 
 import color.exchange.ui.DrawingCanvas;
 
+/**
+ * klasa realizuj¹ca zmianê kolorów w wybranych elementach GUI
+ * 
+ */
 public class ColorChangeExecutor {
     private final DrawingCanvas canvas;
     private final JSlider sliderR, sliderG, sliderB;
 
+    /**
+     * parametry konstruktora to elementy GUI, które reaguj¹ na zmianê koloru
+     * 
+     * @param canvas
+     * @param sliderR
+     * @param sliderG
+     * @param sliderB
+     */
     public ColorChangeExecutor(DrawingCanvas canvas, JSlider sliderR,
 	    JSlider sliderG, JSlider sliderB) {
 	super();

@@ -4,6 +4,10 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Klasa stanowi¹ca bufor dla kolorów
+ * 
+ */
 public class ColorQueue {
 
     private final List<Color> queue;

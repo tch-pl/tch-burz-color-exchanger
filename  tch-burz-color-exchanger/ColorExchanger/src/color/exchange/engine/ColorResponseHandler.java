@@ -26,13 +26,12 @@ public class ColorResponseHandler implements Runnable {
 	    input.close();
 	    client.close();
 	} catch (IOException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
+	    System.out.println(this.getClass() + "   " + e.getClass() + "   "
+		    + e.getMessage());
 	} catch (ClassNotFoundException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
+	    System.out.println(this.getClass() + "   " + e.getClass() + "   "
+		    + e.getMessage());
 	}
 
     }
-
 }
