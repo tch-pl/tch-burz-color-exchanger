@@ -84,8 +84,10 @@ class TColor extends JPanel {
 	sliderB = getSlider(0, 255, 0, 50, 5);
 	send = new JButton("Wysy³aj");
 	send.setSize(30, 20);
+	send.repaint();
 	receive = new JButton("Odbieraj");
 	receive.setSize(30, 20);
+	receive.repaint();
 	JPanel panel = new JPanel();
 	panel.setLayout(new GridLayout(6, 2, 15, 0));
 
