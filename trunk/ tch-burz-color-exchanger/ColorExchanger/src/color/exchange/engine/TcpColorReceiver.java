@@ -7,10 +7,15 @@ import java.net.Socket;
 public class TcpColorReceiver implements Runnable {
     private boolean run = true;
     private ServerSocket socket;
+    private final Integer serverPort;
+
+    public TcpColorReceiver(Integer serverPort) {
+	this.serverPort = serverPort;
+    }
 
     public void run() {
 	try {
-	    socket = new ServerSocket(61101);
+	    socket = new ServerSocket(serverPort);
 	} catch (IOException e1) {
 	    System.out.println("new Server Socket create error");
 	}

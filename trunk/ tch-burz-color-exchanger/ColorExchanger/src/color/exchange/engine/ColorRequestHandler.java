@@ -6,7 +6,14 @@ import java.io.IOException;
 import color.exchange.ui.event.ColorQueue;
 
 public class ColorRequestHandler implements Runnable {
-    ColorQueue queue = ColorQueue.getInstance();
+    private final ColorQueue queue = ColorQueue.getInstance();
+    private final String serverAddress;
+    private final Integer serverPort;
+
+    public ColorRequestHandler(String serverAddress, Integer serverPort) {
+	this.serverAddress = serverAddress;
+	this.serverPort = serverPort;
+    }
 
     public void run() {
 	while (true) {
@@ -25,7 +32,7 @@ public class ColorRequestHandler implements Runnable {
 	while (!queue.isEmpty()) {
 	    Color col = queue.getColor();
 	    TcpColorSender sender = new TcpColorSender();
-	    sender.start();
+	    sender.start(serverAddress, serverPort);
 	    if (col != null) {
 		sender.sendColor(col.getRed(), col.getGreen(), col.getBlue());
 	    }

@@ -8,8 +8,8 @@ import java.net.Socket;
 public class TcpColorSender {
     private Socket socket;
 
-    public void start() throws IOException {
-	socket = new Socket("localhost", 61101);
+    public void start(String address, Integer port) throws IOException {
+	socket = new Socket(address, port);
     }
 
     public void sendColor(int r, int g, int b) throws IOException {
