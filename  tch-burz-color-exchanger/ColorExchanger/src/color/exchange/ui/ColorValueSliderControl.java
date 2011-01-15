@@ -70,6 +70,7 @@ class ColorChangeListener implements ChangeListener {
 class TColor extends JPanel {
     DrawingCanvas canvas = new DrawingCanvas();
     JLabel rgbValue = new JLabel("");
+    JLabel statusValue = new JLabel("");
 
     JSlider sliderR, sliderG, sliderB;
     JButton send;
@@ -91,11 +92,11 @@ class TColor extends JPanel {
 	JPanel panel = new JPanel();
 	panel.setLayout(new GridLayout(6, 2, 15, 0));
 
-	panel.add(new JLabel("R-G-B Sliders (0 - 255)"));
+	panel.add(new JLabel("R-G-B (0 - 255)"));
 	panel.add(sliderR);
 	panel.add(sliderG);
 	panel.add(sliderB);
-	panel.add(new JLabel("RGB Value: ", JLabel.RIGHT));
+	panel.add(new JLabel("RGB: ", JLabel.RIGHT));
 
 	rgbValue.setBackground(Color.white);
 	rgbValue.setForeground(Color.black);
@@ -103,6 +104,8 @@ class TColor extends JPanel {
 	panel.add(rgbValue);
 	panel.add(send);
 	panel.add(receive);
+	panel.add(new JLabel("Status: ", JLabel.LEFT));
+	panel.add(statusValue);
 	sliderR.addChangeListener(colorChangeListener);
 	sliderG.addChangeListener(colorChangeListener);
 	sliderB.addChangeListener(colorChangeListener);
@@ -110,7 +113,9 @@ class TColor extends JPanel {
 	receive.addActionListener(new ActionListener() {
 
 	    public void actionPerformed(ActionEvent event) {
-		colorChangeListener.set_receive(Boolean.TRUE);
+		statusValue.setText("Odbieram");
+		colorChangeListener.set_receive(!colorChangeListener
+			.is_receive());
 		blockUI();
 		try {
 		    ColorChangeExecutor executor = new ColorChangeExecutor(
@@ -133,6 +138,7 @@ class TColor extends JPanel {
 	send.addActionListener(new ActionListener() {
 
 	    public void actionPerformed(ActionEvent event) {
+		statusValue.setText("Wysy³am");
 		try {
 		    engine.sendColor();
 		} catch (IOException e) {
@@ -155,11 +161,8 @@ class TColor extends JPanel {
     }
 
     private void setVisibleUI(boolean visible) {
-	send.setVisible(visible);
-	receive.setVisible(visible);
-	sliderB.setVisible(visible);
-	sliderR.setVisible(visible);
-	sliderG.setVisible(visible);
+	send.setEnabled(visible);
+	receive.setEnabled(visible);
     }
 
     private JSlider getSlider(int min, int max, int init, int mjrTkSp,
