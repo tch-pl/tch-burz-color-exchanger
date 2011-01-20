@@ -1,10 +1,14 @@
-package color.exchange.engine;
+package color.exchange.engine.sender;
 
 import java.awt.Color;
 import java.io.IOException;
 
 import color.exchange.ui.event.ColorQueue;
 
+/**
+ * metoda realizujaca odczyt
+ * 
+ */
 public class ColorRequestHandler implements Runnable {
     private final ColorQueue queue = ColorQueue.getInstance();
     private final String serverAddress;

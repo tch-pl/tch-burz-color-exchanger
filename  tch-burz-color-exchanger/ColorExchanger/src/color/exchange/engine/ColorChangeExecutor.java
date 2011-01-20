@@ -31,6 +31,12 @@ public class ColorChangeExecutor {
 	this.sliderB = sliderB;
     }
 
+    /**
+     * metoda ustawia dany kolor na elementach GUI
+     * 
+     * @param color
+     *            kolor ktory ma byc ustawiony w GUI
+     */
     public void executeColorChange(Color color) {
 	int red = color.getRed();
 	int green = color.getGreen();
