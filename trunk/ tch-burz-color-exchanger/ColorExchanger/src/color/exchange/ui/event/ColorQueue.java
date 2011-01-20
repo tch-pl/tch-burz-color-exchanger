@@ -46,10 +46,10 @@ public class ColorQueue {
 
     /**
      * metoda zwracjajaca pierwszy kolor z kolekcji lub jesli jest pusta zwraca
-     * null; metoda jest synchronizowana w celu zabezpieczenia przed
-     * jednoczesnym wywolywaniem przez wiele watkow; wywolac synchronizowana
-     * metode moze jednoczesnie tylko jeden watek, inne ktore probuja musza
-     * zaczekac az metoda zostanie wykonana
+     * null, pobrany kolor jest usuwany z kolekcji; metoda jest synchronizowana
+     * w celu zabezpieczenia przed jednoczesnym wywolywaniem przez wiele watkow;
+     * wywolac synchronizowana metode moze jednoczesnie tylko jeden watek, inne
+     * ktore probuja musza zaczekac az metoda zostanie wykonana
      * 
      * @return
      */
