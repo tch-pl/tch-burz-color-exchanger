@@ -6,12 +6,19 @@ import java.io.IOException;
 import color.exchange.ui.event.ColorQueue;
 
 /**
- * metoda realizujaca odczyt
+ * metoda realizujaca odczyt z kolejki kolorow w nadawcy; paracujaca jako watek
+ * w tle
  * 
  */
 public class ColorRequestHandler implements Runnable {
     private final ColorQueue queue = ColorQueue.getInstance();
+    /**
+     * adres odbiorcy
+     */
     private final String serverAddress;
+    /**
+     * port odbiorcy
+     */
     private final Integer serverPort;
 
     public ColorRequestHandler(String serverAddress, Integer serverPort) {
@@ -20,6 +27,9 @@ public class ColorRequestHandler implements Runnable {
     }
 
     public void run() {
+	// w nieskonczonej petli wywyolujemy metode odczytujaca z kolejki i
+	// wysylajaca do odbiorcy
+
 	while (true) {
 	    try {
 		sendColors();
@@ -31,8 +41,11 @@ public class ColorRequestHandler implements Runnable {
 
     }
 
+    /**
+     * @throws IOException
+     */
     private void sendColors() throws IOException {
-
+	// dopoki jest cos w kolejce to pobieramy z kolejki i wysylamy
 	while (!queue.isEmpty()) {
 	    Color col = queue.getColor();
 	    TcpColorSender sender = new TcpColorSender();

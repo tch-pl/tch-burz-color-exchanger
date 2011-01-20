@@ -19,6 +19,10 @@ import color.exchange.engine.ColorChangeExecutor;
 import color.exchange.engine.ColorEngine;
 import color.exchange.ui.event.ColorQueue;
 
+/**
+ * GUI
+ * 
+ */
 public class ColorValueSliderControl extends JFrame {
     private ColorEngine engine;
 
@@ -31,6 +35,7 @@ public class ColorValueSliderControl extends JFrame {
     }
 
     public ColorValueSliderControl(ColorEngine engine) {
+	// ustawiamy obiekt odpowiedzialny za wysylanie/odbieranie kolorow
 	setEngine(engine);
 	getContentPane().add(new TColor(getEngine()));
 	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -39,6 +44,11 @@ public class ColorValueSliderControl extends JFrame {
     }
 }
 
+/**
+ * klasa realizujaca reakcje zdarzenie zmiany suwaka -> utworzenie koloru i
+ * umieszczenie go w kolejce
+ * 
+ */
 class ColorChangeListener implements ChangeListener {
     public ColorChangeListener(boolean receive, DrawingCanvas canvas) {
 	super();
@@ -46,11 +56,17 @@ class ColorChangeListener implements ChangeListener {
 	this.canvas = canvas;
     }
 
+    // flaga do oznaczania czy ma byc reakcja na zmiane suwaka; jesli w stanie
+    // nadawania to nie ma reakcji
     private boolean _receive;
     private final DrawingCanvas canvas;
 
     public void stateChanged(ChangeEvent e) {
+
+	// jesli w stanie to nie nadawania ma reakcji
 	if (!_receive) {
+	    // jesli nastapila zmiana na suwaku nastepuej odczyt wart z
+	    // wszystkich suwakow, utworzenie koloru i umieszczenie go w kolejce
 	    Color col = new Color(canvas.redValue, canvas.greenValue,
 		    canvas.blueValue);
 	    ColorQueue.getInstance().putColor(col);
@@ -68,18 +84,22 @@ class ColorChangeListener implements ChangeListener {
 }
 
 class TColor extends JPanel {
-    DrawingCanvas canvas = new DrawingCanvas();
-    JLabel rgbValue = new JLabel("");
-    JLabel statusValue = new JLabel("");
+    DrawingCanvas canvas = new DrawingCanvas(); // tlo do rysowania koloru
+    JLabel rgbValue = new JLabel(""); // pole z wartoscia hex koloru
+    JLabel statusValue = new JLabel(""); // pole statusu w jakim jest aplikacja
+    // -> wysylanie lub odbieranie
 
-    JSlider sliderR, sliderG, sliderB;
-    JButton send;
-    JButton receive;
+    JSlider sliderR, sliderG, sliderB; // suwaki do zmiany kolorow
+    JButton send; // przycisk Wysy³aj -> po nacisnieciu startuje watek
+    // nasluchujacy na zmiany suwakow
+    JButton receive; // przycisk Odbieraj
 
     public TColor(final ColorEngine engine) {
+	// reakcje zdarzenie zmiany suwaka
 	final ColorChangeListener colorChangeListener = new ColorChangeListener(
 		false, canvas);
 
+	// ustawianie komponentow GUI
 	sliderR = getSlider(0, 255, 0, 50, 5);
 	sliderG = getSlider(0, 255, 0, 50, 5);
 	sliderB = getSlider(0, 255, 0, 50, 5);
@@ -106,20 +126,25 @@ class TColor extends JPanel {
 	panel.add(receive);
 	panel.add(new JLabel("Status: ", JLabel.LEFT));
 	panel.add(statusValue);
+
+	// dodajemy do suwakow reakcje zdarzenie zmiany suwaka
 	sliderR.addChangeListener(colorChangeListener);
 	sliderG.addChangeListener(colorChangeListener);
 	sliderB.addChangeListener(colorChangeListener);
 
 	receive.addActionListener(new ActionListener() {
-
+	    // obsluga nacisniecia przycisku odbieraj
 	    public void actionPerformed(ActionEvent event) {
 		statusValue.setText("Odbieram");
 		colorChangeListener.set_receive(!colorChangeListener
 			.is_receive());
-		blockUI();
 		try {
+		    // obiekt realizuj¹ca zmianê kolorów w wybranych elementach
+		    // GUI
 		    ColorChangeExecutor executor = new ColorChangeExecutor(
 			    canvas, sliderR, sliderG, sliderB);
+		    // metoda uruchamia: @1 watek realizujacy nasluchiwanie na
+		    // zmiane kolorow @2 watek reagujacy na odbior zmiany koloru
 		    engine.receiveColor(executor);
 
 		} catch (IOException e) {
@@ -131,15 +156,15 @@ class TColor extends JPanel {
 			    + "   " + e.getMessage());
 		}
 
-		unblockUI();
 	    }
 	});
 
 	send.addActionListener(new ActionListener() {
-
+	    // obsluga nacisniecia przycisku wysylaj
 	    public void actionPerformed(ActionEvent event) {
 		statusValue.setText("Wysy³am");
 		try {
+		    // metoda uruchamia watek realizujacy wysylanie kolorow
 		    engine.sendColor();
 		} catch (IOException e) {
 		    System.out.println(this.getClass() + "   " + e.getClass()
@@ -176,6 +201,12 @@ class TColor extends JPanel {
 	return slider;
     }
 
+    /**
+     * reakcje zdarzenie zmiany suwaka - zmiana koloru tla (nie ma zwiazku z
+     * kolejka kolorow, zmienia sie tylko te GUI na ktorym zmiana suwaka
+     * nastapila)
+     * 
+     */
     class SliderListener implements ChangeListener {
 	public void stateChanged(ChangeEvent e) {
 	    JSlider slider = (JSlider) e.getSource();
