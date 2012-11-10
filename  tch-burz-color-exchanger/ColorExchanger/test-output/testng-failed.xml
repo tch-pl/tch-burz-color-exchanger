@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [ColorChangeTestSuite]">
+  <parameter name="color_red" value="0"/>
+  <parameter name="color_green" value="0"/>
+  <parameter name="color_blue" value="0"/>
+  <test name="ColorChange(failed)">
+    <classes>
+      <class name="color.exchange.engine.test.ColorChangeTest">
+        <methods>
+          <include name="afterMethod"/>
+          <include name="executeColorChangeTest" invocation-numbers="0"/>
+          <include name="beforeMethod"/>
+        </methods>
+      </class> <!-- color.exchange.engine.test.ColorChangeTest -->
+    </classes>
+  </test> <!-- ColorChange(failed) -->
+</suite> <!-- Failed suite [ColorChangeTestSuite] -->

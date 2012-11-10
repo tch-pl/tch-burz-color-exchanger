@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" total="2" passed="2">
+  <reporter-output>
+  </reporter-output>
+  <suite name="ColorChangeTestSuite" duration-ms="157" started-at="2012-11-02T15:44:26Z" finished-at="2012-11-02T15:44:26Z">
+    <groups>
+    </groups>
+    <test name="ColorChange" duration-ms="157" started-at="2012-11-02T15:44:26Z" finished-at="2012-11-02T15:44:26Z">
+      <class name="color.exchange.engine.test.ColorChangeTest">
+        <test-method status="PASS" signature="beforeMethod()[pri:0, instance:color.exchange.engine.test.ColorChangeTest@147ee05]" name="beforeMethod" is-config="true" duration-ms="109" started-at="2012-11-02T16:44:26Z" finished-at="2012-11-02T16:44:26Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeMethod -->
+        <test-method status="PASS" signature="executorCreateTest(java.lang.Integer, java.lang.Integer, java.lang.Integer)[pri:0, instance:color.exchange.engine.test.ColorChangeTest@147ee05]" name="executorCreateTest" duration-ms="16" started-at="2012-11-02T16:44:26Z" finished-at="2012-11-02T16:44:26Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[0]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[0]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[0]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- executorCreateTest -->
+        <test-method status="PASS" signature="beforeMethod()[pri:0, instance:color.exchange.engine.test.ColorChangeTest@147ee05]" name="beforeMethod" is-config="true" duration-ms="16" started-at="2012-11-02T16:44:26Z" finished-at="2012-11-02T16:44:26Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeMethod -->
+        <test-method status="PASS" signature="afterMethod()[pri:0, instance:color.exchange.engine.test.ColorChangeTest@147ee05]" name="afterMethod" is-config="true" duration-ms="0" started-at="2012-11-02T16:44:26Z" finished-at="2012-11-02T16:44:26Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- afterMethod -->
+        <test-method status="PASS" signature="executeColorChangeTest(java.lang.Integer, java.lang.Integer, java.lang.Integer)[pri:0, instance:color.exchange.engine.test.ColorChangeTest@147ee05]" name="executeColorChangeTest" duration-ms="0" started-at="2012-11-02T16:44:26Z" data-provider="color_generator" finished-at="2012-11-02T16:44:26Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[78]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[2]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[57]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- executeColorChangeTest -->
+        <test-method status="PASS" signature="afterMethod()[pri:0, instance:color.exchange.engine.test.ColorChangeTest@147ee05]" name="afterMethod" is-config="true" duration-ms="0" started-at="2012-11-02T16:44:26Z" finished-at="2012-11-02T16:44:26Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- afterMethod -->
+      </class> <!-- color.exchange.engine.test.ColorChangeTest -->
+    </test> <!-- ColorChange -->
+  </suite> <!-- ColorChangeTestSuite -->
+</testng-results>

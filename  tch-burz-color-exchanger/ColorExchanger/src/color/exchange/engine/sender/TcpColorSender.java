@@ -10,43 +10,43 @@ import java.net.Socket;
  * 
  */
 public class TcpColorSender {
-    /**
-     * gniazdo do komunikacji
-     */
-    private Socket socket;
+	/**
+	 * gniazdo do komunikacji
+	 */
+	private Socket socket;
 
-    /**
-     * @param address
-     *            adres ip maszyny na ktorej dziala program odbierajcy kolory
-     * @param port
-     *            port
-     * @throws IOException
-     */
-    public void start(String address, Integer port) throws IOException {
-	socket = new Socket(address, port);
-    }
+	/**
+	 * @param address
+	 *            adres ip maszyny na ktorej dziala program odbierajcy kolory
+	 * @param port
+	 *            port
+	 * @throws IOException
+	 */
+	public void start(String address, Integer port) throws IOException {
+		socket = new Socket(address, port);
+	}
 
-    /**
-     * metoda przesylajaca kolor do obdiorcy
-     * 
-     * @param r
-     *            wart r koloru
-     * @param g
-     *            wart g koloru
-     * @param b
-     *            wart b koloru
-     * @throws IOException
-     */
-    public void sendColor(int r, int g, int b) throws IOException {
-	// tworzymy strumien do przeslania koloru (korzystajac z gniazda)
-	ObjectOutputStream output = new ObjectOutputStream(socket
-		.getOutputStream());
-	// zapisujemy obiekt do strumienia
-	output.writeObject(new Color(r, g, b));
+	/**
+	 * metoda przesylajaca kolor do obdiorcy
+	 * 
+	 * @param r
+	 *            wart r koloru
+	 * @param g
+	 *            wart g koloru
+	 * @param b
+	 *            wart b koloru
+	 * @throws IOException
+	 */
+	public void sendColor(int r, int g, int b) throws IOException {
+		// tworzymy strumien do przeslania koloru (korzystajac z gniazda)
+		ObjectOutputStream output = new ObjectOutputStream(
+				socket.getOutputStream());
+		// zapisujemy obiekt do strumienia
+		output.writeObject(new Color(r, g, b));
 
-	// zamykamy strumien
-	output.close();
-	// zamykamy gniazdo
-	socket.close();
-    }
+		// zamykamy strumien
+		output.close();
+		// zamykamy gniazdo
+		socket.close();
+	}
 }

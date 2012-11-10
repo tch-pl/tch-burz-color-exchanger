@@ -14,83 +14,83 @@ import java.util.ArrayList;
  */
 public class ColorQueue {
 
-    /**
-     * kolekcja sluzaca do przechowywania obiektow reprezentujacych kolory
-     */
-    private final ArrayList<Color> queue;
+	/**
+	 * kolekcja sluzaca do przechowywania obiektow reprezentujacych kolory
+	 */
+	private final ArrayList<Color> queue;
 
-    /**
-     * inicjalizacja obiektu
-     */
-    private static ColorQueue colorQueue = new ColorQueue();
+	/**
+	 * inicjalizacja obiektu
+	 */
+	private static ColorQueue colorQueue = new ColorQueue();
 
-    /**
-     * za pomoca tej met. uzyskujemy obiekt i jest to z zawsze ten sam obiekt
-     * dla danego programu
-     * 
-     * @return
-     */
-    public static ColorQueue getInstance() {
-	return colorQueue;
-    }
-
-    /**
-     * prywatny konstruktor wymusza korzystanie z met getInstance() do uzyskania
-     * obiektu tej klasy
-     */
-    private ColorQueue() {
-	// kolekcja uzyta do przechowywania kolorow, przechowuje kolory w
-	// kolejnosci w jakiej zostaly one dodane
-	queue = new ArrayList<Color>();
-    }
-
-    /**
-     * metoda zwracjajaca pierwszy kolor z kolekcji lub jesli jest pusta zwraca
-     * null, pobrany kolor jest usuwany z kolekcji; metoda jest synchronizowana
-     * w celu zabezpieczenia przed jednoczesnym wywolywaniem przez wiele watkow;
-     * wywolac synchronizowana metode moze jednoczesnie tylko jeden watek, inne
-     * ktore probuja musza zaczekac az metoda zostanie wykonana
-     * 
-     * @return
-     */
-    public synchronized Color getColor() {
-
-	if (isEmpty()) {
-	    return null;
+	/**
+	 * za pomoca tej met. uzyskujemy obiekt i jest to z zawsze ten sam obiekt
+	 * dla danego programu
+	 * 
+	 * @return
+	 */
+	public static ColorQueue getInstance() {
+		return colorQueue;
 	}
 
-	synchronized (queue) {
-	    Color color = queue.get(0);
-	    queue.remove(0);
-	    return color;
+	/**
+	 * prywatny konstruktor wymusza korzystanie z met getInstance() do uzyskania
+	 * obiektu tej klasy
+	 */
+	private ColorQueue() {
+		// kolekcja uzyta do przechowywania kolorow, przechowuje kolory w
+		// kolejnosci w jakiej zostaly one dodane
+		queue = new ArrayList<Color>();
 	}
 
-    }
+	/**
+	 * metoda zwracjajaca pierwszy kolor z kolekcji lub jesli jest pusta zwraca
+	 * null, pobrany kolor jest usuwany z kolekcji; metoda jest synchronizowana
+	 * w celu zabezpieczenia przed jednoczesnym wywolywaniem przez wiele watkow;
+	 * wywolac synchronizowana metode moze jednoczesnie tylko jeden watek, inne
+	 * ktore probuja musza zaczekac az metoda zostanie wykonana
+	 * 
+	 * @return
+	 */
+	public synchronized Color getColor() {
 
-    /**
-     * metoda do sprawdzenia czy kolekcja jest pusta
-     * 
-     * @return
-     */
-    public boolean isEmpty() {
-	return queue != null && queue.size() > 0 ? false : true;
-    }
+		if (isEmpty()) {
+			return null;
+		}
 
-    /**
-     * metoda wstawiajaca kolor do kolekcji³ metoda jest synchronizowana w celu
-     * zabezpieczenia przed jednoczesnym wywolywaniem przez wiele watkow;
-     * wywolac synchronizowana metode moze jednoczesnie tylko jeden watek, inne
-     * ktore probuja musza zaczekac az metoda zostanie wykonana
-     * 
-     * @param color
-     * 
-     */
-    public synchronized void putColor(Color color) {
-	if (queue == null) {
-	    return;
+		synchronized (queue) {
+			Color color = queue.get(0);
+			queue.remove(0);
+			return color;
+		}
+
 	}
-	synchronized (queue) {
-	    queue.add(color);
+
+	/**
+	 * metoda do sprawdzenia czy kolekcja jest pusta
+	 * 
+	 * @return
+	 */
+	public boolean isEmpty() {
+		return queue != null && queue.size() > 0 ? false : true;
 	}
-    }
+
+	/**
+	 * metoda wstawiajaca kolor do kolekcji³ metoda jest synchronizowana w celu
+	 * zabezpieczenia przed jednoczesnym wywolywaniem przez wiele watkow;
+	 * wywolac synchronizowana metode moze jednoczesnie tylko jeden watek, inne
+	 * ktore probuja musza zaczekac az metoda zostanie wykonana
+	 * 
+	 * @param color
+	 * 
+	 */
+	public synchronized void putColor(Color color) {
+		if (queue == null) {
+			return;
+		}
+		synchronized (queue) {
+			queue.add(color);
+		}
+	}
 }
