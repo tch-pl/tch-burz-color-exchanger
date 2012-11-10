@@ -11,48 +11,52 @@ import color.exchange.ui.event.ColorQueue;
  * 
  */
 public class ColorRequestHandler implements Runnable {
-    private final ColorQueue queue = ColorQueue.getInstance();
-    /**
-     * adres odbiorcy
-     */
-    private final String serverAddress;
-    /**
-     * port odbiorcy
-     */
-    private final Integer serverPort;
+	private final ColorQueue queue = ColorQueue.getInstance();
+	/**
+	 * adres odbiorcy
+	 */
+	private final String serverAddress;
+	/**
+	 * port odbiorcy
+	 */
+	private final Integer serverPort;
 
-    public ColorRequestHandler(String serverAddress, Integer serverPort) {
-	this.serverAddress = serverAddress;
-	this.serverPort = serverPort;
-    }
-
-    public void run() {
-	// w nieskonczonej petli wywyolujemy metode odczytujaca z kolejki i
-	// wysylajaca do odbiorcy
-
-	while (true) {
-	    try {
-		sendColors();
-	    } catch (IOException e) {
-		System.out.println(this.getClass() + "   " + e.getClass()
-			+ "   " + e.getMessage());
-	    }
+	public ColorRequestHandler(String serverAddress, Integer serverPort) {
+		this.serverAddress = serverAddress;
+		this.serverPort = serverPort;
 	}
 
-    }
+	public void run() {
+		// w nieskonczonej petli wywyolujemy metode odczytujaca z kolejki i
+		// wysylajaca do odbiorcy
+		System.out.println("ColorRequestHandler run START");
+		while (true) {
+			try {
+				System.out.println("before sent color call");
+				sendColors();
+				System.out.println("after sent color call");
+			} catch (IOException e) {
+				System.out.println(this.getClass() + "   " + e.getClass()
+						+ "   " + e.getMessage());
+			}
+		}
 
-    /**
-     * @throws IOException
-     */
-    private void sendColors() throws IOException {
-	// dopoki jest cos w kolejce to pobieramy z kolejki i wysylamy
-	while (!queue.isEmpty()) {
-	    Color col = queue.getColor();
-	    TcpColorSender sender = new TcpColorSender();
-	    sender.start(serverAddress, serverPort);
-	    if (col != null) {
-		sender.sendColor(col.getRed(), col.getGreen(), col.getBlue());
-	    }
 	}
-    }
+
+	/**
+	 * @throws IOException
+	 */
+	private void sendColors() throws IOException {
+		// dopoki jest cos w kolejce to pobieramy z kolejki i wysylamy
+		while (!queue.isEmpty()) {
+			Color col = queue.getColor();
+			TcpColorSender sender = new TcpColorSender();
+			sender.start(serverAddress, serverPort);
+
+			if (col != null) {
+				System.out.println("sent color " + col.toString());
+				sender.sendColor(col.getRed(), col.getGreen(), col.getBlue());
+			}
+		}
+	}
 }
